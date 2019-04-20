@@ -14,7 +14,7 @@ Please run it on API 28.
 - Can locate user location.
 
 ## Functions haven't built
-- Use user location, I am using hardcoded location right now. The problem is about FragmentPagerAdapter.
+- Use user location, I am using hardcoded location:Boston right now. The problem is about FragmentPagerAdapter.
 - Setting notification.
 
 
