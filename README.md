@@ -1,4 +1,4 @@
-# weather-app-android-
+# weather-app-android
 
 ## API key
 Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather map api key.
