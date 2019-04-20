@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements
         Hourly.OnFragmentInteractionListener{
 
     public static String CITY = "Boston";
-    public static String WEATHERMAP_API_KEY = "7fc30377d4cd32aecdf3f2c07dfde4b1";
+    public static String WEATHERMAP_API_KEY = "YOUR API KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
