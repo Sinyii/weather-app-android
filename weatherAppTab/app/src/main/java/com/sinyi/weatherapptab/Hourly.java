@@ -250,12 +250,13 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
                     ArrayList<Entry> yValuesMax = new ArrayList<>();
                     ArrayList<Entry> yValuesMin = new ArrayList<>();
 
-
-                    for(int i=0; i<FORECAST_HOURS || i<time.length ; i++){
+                    int count = 0;
+                     for(int i=0; i<FORECAST_HOURS || i<time.length ; i++){
                         String[] tmp = time[i].split(":");
-                        yValues.add(new Entry(Integer.parseInt(tmp[0]), (float)temp[i]));
-                        yValuesMax.add(new Entry(Integer.parseInt(tmp[0]), (float)maxTemp[i]));
-                        yValuesMin.add(new Entry(Integer.parseInt(tmp[0]), (float)minTemp[i]));
+                        yValues.add(new Entry(count, (float)temp[i]));
+                        yValuesMax.add(new Entry(count, (float)maxTemp[i]));
+                        yValuesMin.add(new Entry(count, (float)minTemp[i]));
+                        count++;
                     }
 
 
