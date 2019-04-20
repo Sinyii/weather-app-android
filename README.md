@@ -1,7 +1,8 @@
 # weather-app-android
 
 ## API key
-Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather map api key.
+Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather map api key.  
+PATH:　weatherAppTab/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java  
 
 ## Compile
 Please put this directory under your default Android Studio project directory.
@@ -19,12 +20,12 @@ Please run it on API 28.
 
 
 ## Reference
-https://youtu.be/EZ-sNN7UWFU
-https://youtu.be/oh4YOj9VkVE
-https://youtu.be/bNpWGI_hGGg
-https://youtu.be/h4HwU_ENXYM
-https://youtu.be/w1g9AaDltUM
-https://youtu.be/rKnzzrdhb9g
+https://youtu.be/EZ-sNN7UWFU  
+https://youtu.be/oh4YOj9VkVE  
+https://youtu.be/bNpWGI_hGGg  
+https://youtu.be/h4HwU_ENXYM  
+https://youtu.be/w1g9AaDltUM  
+https://youtu.be/rKnzzrdhb9g  
 
 ### Other
 This project started on 4/17/2019, first version uploaded on 4/19/2019.
