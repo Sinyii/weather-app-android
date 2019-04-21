@@ -1,6 +1,8 @@
 package com.sinyi.weatherapptab;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -14,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 
 
 /**
@@ -163,9 +168,16 @@ public class CurrentTemp extends Fragment {
     class DownloadWeather extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            if (MainActivity.CALLCOUNT >= MainActivity.APICALL_UPPERBOUND){
+                MainActivity.CALLCOUNT = 0;
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             progressBar.setVisibility(View.VISIBLE);
-
+            super.onPreExecute();
         }
 
         protected String doInBackground(String... args) {
@@ -174,6 +186,7 @@ public class CurrentTemp extends Fragment {
             if (xml == null) {
                 return "";
             }
+            MainActivity.CALLCOUNT++;
             return xml;
         }
 
@@ -189,7 +202,7 @@ public class CurrentTemp extends Fragment {
 
                     cityNameField.setText(json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country"));
                     detailField.setText(details.getString("description").toUpperCase(Locale.US));
-                    currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + "°");
+                    currentTemperatureField.setText(String.format("%.2f", main.getDouble("temp")) + "°F");
                     humidityField.setText("Humidity: " + main.getString("humidity") + "%");
                     pressureField.setText("Pressure: " + main.getString("pressure") + " hPa");
                     updatedField.setText(df.format(new Date(json.getLong("dt") * 1000)));
@@ -198,6 +211,7 @@ public class CurrentTemp extends Fragment {
                             json.getJSONObject("sys").getLong("sunset") * 1000)));
 
                     progressBar.setVisibility(View.GONE);
+                    MainActivity.CURRENTDEGREE = (int)main.getDouble("temp");
 
                 }
             } catch (JSONException e) {
@@ -205,4 +219,7 @@ public class CurrentTemp extends Fragment {
             }
         }
     }
+
+
+
 }

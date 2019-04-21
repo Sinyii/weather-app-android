@@ -6,10 +6,6 @@
         android:title="Locate me"
         app:showAsAction="ifRoom"></item>
 
-    <item android:id="@+id/setting"
-        android:title="setting"
-        app:showAsAction="never"></item>
-
     <item android:id="@+id/notification"
         android:title="notification"
         app:showAsAction="never"></item>

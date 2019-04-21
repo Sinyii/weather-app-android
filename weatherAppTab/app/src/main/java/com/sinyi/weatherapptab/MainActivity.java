@@ -1,7 +1,12 @@
 package com.sinyi.weatherapptab;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -12,10 +17,13 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -41,14 +49,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.sinyi.weatherapptab.App.CHANNEL_1_ID;
+import static com.sinyi.weatherapptab.App.CHANNEL_2_ID;
+
 public class MainActivity extends AppCompatActivity implements
         CurrentTemp.OnFragmentInteractionListener,
         Daily.OnFragmentInteractionListener,
         Hourly.OnFragmentInteractionListener{
 
     public static String CITY = "Boston";
-    public static String WEATHERMAP_API_KEY = "YOUR API KEY";
-
+    public static String WEATHERMAP_API_KEY = "YOUR API　KEY";
+    public static final int APICALL_UPPERBOUND = 60;
+    public static int CALLCOUNT = 0;
+    public static int CURRENTDEGREE = 0;
+    public static int ABOVE = -1;
+    public static String NOTIFIDEGREE = "0";
+    private NotificationManagerCompat notificationManager;
+    private Handler myHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +75,12 @@ public class MainActivity extends AppCompatActivity implements
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+        notificationManager = NotificationManagerCompat.from(this);
+
+        myHandler = new android.os.Handler();
+        myHandler.postDelayed(updateTimerThread, 0);
+
     }
 
     @Override
@@ -74,11 +97,11 @@ public class MainActivity extends AppCompatActivity implements
                 locate();
                 Toast.makeText(this, "Current city:" + CITY, Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.setting:
-                Toast.makeText(this, "setting is selected", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.notification:
                 Toast.makeText(this, "notification is selected", Toast.LENGTH_SHORT).show();
+                Intent settingIntent = new Intent(this, SettingActivity.class);
+                this.startActivity(settingIntent);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -147,4 +170,49 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    public void sendOnChannel1(View v) {
+        String title = "Notification!";
+        String message;
+        if (ABOVE == 1) {
+            message = "Current degree is above your setting value.";
+        } else {
+            message ="Current degree is below your setting value.";
+
+        }
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManager.notify(11, notification);
+    }
+
+    //TODO: Check the senOnChannel1 call, its parameter might be wrong
+    public void checkNotification(){
+        if(ABOVE == 1){
+            if(CURRENTDEGREE > Integer.parseInt(NOTIFIDEGREE)){
+                sendOnChannel1(getWindow().getDecorView().getRootView());
+            }
+        }
+        else if(ABOVE == 2){
+            if(CURRENTDEGREE < Integer.parseInt(NOTIFIDEGREE)){
+                sendOnChannel1(getWindow().getDecorView().getRootView());
+            }
+        }
+    }
+
+    private Runnable updateTimerThread = new Runnable()
+    {
+        public void run()
+        {
+            checkNotification();
+
+            myHandler.postDelayed(this, 5000);
+        }
+    };
 }

@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">weather App</string>
+    <string name="app_name">Sinyi\'s Weather App</string>
     <string name="tab_text_1">Current</string>
     <string name="tab_text_2">Hourly</string>
     <string name="tab_text_3">Daily</string>
-
+    <string name="design">design</string>
+    <string name="notification_text">Notify you when current temperature is</string>
+    <string-array name="spinner_options">
+        <item>above</item>
+        <item>below</item>
+    </string-array>
+    <string name="setting_btn">Enter</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

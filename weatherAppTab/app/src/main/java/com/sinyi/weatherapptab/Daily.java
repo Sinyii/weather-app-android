@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
@@ -31,6 +33,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -91,6 +94,9 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
         mChartDaily = (LineChart)v.findViewById(R.id.linecChartDaily);
         mChartDaily.setOnChartGestureListener(this);
         mChartDaily.setOnChartValueSelectedListener(this);
+        mChartDaily.setDragEnabled(true);
+        mChartDaily.setScaleEnabled(false);
+        mChartDaily.setNoDataText("Tap to load data.");
 
         taskLoadUp(city);
         // Inflate the layout for this fragment
@@ -198,10 +204,16 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
     class DownloadWeather extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
+            if (MainActivity.CALLCOUNT >= MainActivity.APICALL_UPPERBOUND){
+                MainActivity.CALLCOUNT = 0;
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            //progressBar.setVisibility(View.VISIBLE);
             super.onPreExecute();
-            /*
-            progressBar.setVisibility(View.VISIBLE);
-            */
 
         }
 
@@ -211,6 +223,7 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
             if (xml == null) {
                 return "";
             }
+            MainActivity.CALLCOUNT++;
             return xml;
         }
 
@@ -234,17 +247,15 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
                         dTime[i] = tmp[1];
                     }
 
-
-                    mChartDaily.setDragEnabled(true);
-                    mChartDaily.setScaleEnabled(false);
                     mChartDaily.getDescription().setText("X:date, Y:°F");
-
 
                     ArrayList<Entry> yValues = new ArrayList<>();
                     ArrayList<Entry> yValuesMax = new ArrayList<>();
                     ArrayList<Entry> yValuesMin = new ArrayList<>();
 
+                    final int[] dateLabel = new int[FORECAST_HOURS/24+1];
                     int preDay = 0;
+                    int dateCount = 0;
                     for (int i = 0; i < FORECAST_HOURS || i < dDate.length; i++) {
                         String[] tmp = dDate[i].split("-");
                         int currentDay = Integer.valueOf(tmp[2]);
@@ -253,14 +264,23 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
                             yValuesMax.add(new Entry(currentDay, (float) dMaxTemp[i]));
                             yValuesMin.add(new Entry(currentDay, (float) dMinTemp[i]));
                             preDay = currentDay;
+                            dateLabel[dateCount] = currentDay;
+                            dateCount++;
                         }
 
                     }
 
+                    XAxis  xAxis = mChartDaily.getXAxis();
+                    //xAxis.setAxisMinimum(dateLabel[0]);
+                    //xAxis.setAxisMaximum(dateLabel[dateLabel.length-1]); // because there are 250 data points
+                    xAxis.setGranularity(1);
+                    xAxis.setLabelCount(dateCount); // if you want to display 0, 5 and 10s which are 3 values then put 3 else whatever of your choice.
 
                     LineDataSet set1 = new LineDataSet(yValues, "Dayly Temperature");
                     //LineDataSet set2 = new LineDataSet(yValuesMax, "Max");
                     //LineDataSet set3 = new LineDataSet(yValuesMin, "Min");
+
+
 
                     set1.setFillAlpha(110);
                     set1.setColor(Color.BLUE);
@@ -274,14 +294,11 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
 
                     LineData data = new LineData(dataSets);
 
-
-                    taskLoadUp(city);
-
                     mChartDaily.setData(data);
 
                 }
             } catch (JSONException e) {
-                Toast.makeText(getActivity().getApplicationContext(), "Error, Check Daily City: " + city, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Error: No chart data.", Toast.LENGTH_SHORT).show();
             }
         }
     }

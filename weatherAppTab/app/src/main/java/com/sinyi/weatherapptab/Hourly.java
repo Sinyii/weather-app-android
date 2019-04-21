@@ -34,6 +34,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -48,7 +49,7 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
     String city = MainActivity.CITY;
     String WEATHERMAP_API_KEY = MainActivity.WEATHERMAP_API_KEY;
     double[] temp, maxTemp, minTemp;
-    String[] time, date;
+    long[] timeStamp;
     LineChart mChart;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,12 +92,17 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
         temp = new double[FORECAST_HOURS];
         maxTemp = new double[FORECAST_HOURS];
         minTemp = new double[FORECAST_HOURS];
-        date = new String[FORECAST_HOURS];
-        time = new String[FORECAST_HOURS];
+        timeStamp = new long[FORECAST_HOURS];
+
+        //date = new String[FORECAST_HOURS];
+        //time = new String[FORECAST_HOURS];
 
         mChart = (LineChart) v.findViewById(R.id.linecChart);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(false);
+        mChart.setNoDataText("Tap to load data.");
 
         taskLoadUp(city);
 
@@ -206,11 +212,15 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
     class DownloadWeather extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
+            if (MainActivity.CALLCOUNT >= MainActivity.APICALL_UPPERBOUND){
+                MainActivity.CALLCOUNT = 0;
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             super.onPreExecute();
-            /*
-            progressBar.setVisibility(View.VISIBLE);
-            */
-
         }
 
         protected String doInBackground(String... args) {
@@ -219,6 +229,7 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
             if (xml == null) {
                 return "";
             }
+            MainActivity.CALLCOUNT++;
             return xml;
         }
 
@@ -235,34 +246,27 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
                         temp[i] = main.getDouble("temp");
                         maxTemp[i] = main.getDouble("temp_max");
                         minTemp[i] = main.getDouble("temp_min");
-                        String[] tmp = hr.getString("dt_txt").split(" ");
-                        date[i] = tmp[0];
-                        time[i] = tmp[1];
+                        timeStamp[i] = hr.getLong ("dt");
                     }
 
-
-                    mChart.setDragEnabled(true);
-                    mChart.setScaleEnabled(false);
                     mChart.getDescription().setText("X:hr, Y:°F");
 
+                    ArrayList<Entry> entries = new ArrayList<>();
+                    ArrayList<Entry> entriesMax = new ArrayList<>();
+                    ArrayList<Entry> entriesMin = new ArrayList<>();
 
-                    ArrayList<Entry> yValues = new ArrayList<>();
-                    ArrayList<Entry> yValuesMax = new ArrayList<>();
-                    ArrayList<Entry> yValuesMin = new ArrayList<>();
-
-                    int count = 0;
-                     for(int i=0; i<FORECAST_HOURS || i<time.length ; i++){
-                        String[] tmp = time[i].split(":");
-                        yValues.add(new Entry(count, (float)temp[i]));
-                        yValuesMax.add(new Entry(count, (float)maxTemp[i]));
-                        yValuesMin.add(new Entry(count, (float)minTemp[i]));
-                        count++;
+                    long timeStampBase = timeStamp[0];
+                     for(int i=0; i<FORECAST_HOURS || i<timeStamp.length ; i++){
+                         long xValue = (timeStamp[i]-timeStampBase)/3600;
+                         entries.add(new Entry(xValue, (float)temp[i]));
+                         entriesMax.add(new Entry(xValue, (float)maxTemp[i]));
+                         entriesMin.add(new Entry(xValue, (float)minTemp[i]));
                     }
 
 
-                    LineDataSet set1 = new LineDataSet(yValues, "Hourly Temperature");
-                    //LineDataSet set2 = new LineDataSet(yValuesMax, "Max");
-                    //LineDataSet set3 = new LineDataSet(yValuesMin, "Min");
+                    LineDataSet set1 = new LineDataSet(entries, "Hourly Temperature");
+                    //LineDataSet set2 = new LineDataSet(entriesMax, "Max");
+                    //LineDataSet set3 = new LineDataSet(entriesMin, "Min");
 
                     set1.setFillAlpha(110);
 
@@ -276,14 +280,11 @@ public class Hourly extends Fragment implements OnChartGestureListener, OnChartV
 
                     LineData data = new LineData(dataSets);
 
-
-                    taskLoadUp(city);
-
                     mChart.setData(data);
 
                 }
             } catch (JSONException e) {
-                Toast.makeText(getActivity().getApplicationContext(), "Error, Check hourly City:" + city, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Error: No chart data." , Toast.LENGTH_SHORT).show();
             }
         }
     }
