@@ -16,16 +16,16 @@ Please run it on API 28.
 
 ## Functions haven't built
 - Use user location, I am using hardcoded location:Boston right now. The problem is about FragmentPagerAdapter.
-- Setting notification.
+- Push notification.
 
 
 ### Screenshots
-![Main page](../img/1.png)
-![Hourly Forecast](../img/2.png)
-![Daily Forecast](../img/3.png)
-![Setting notification 1](../img/4.png)
-![Setting notification 2](../img/5.png)
-![Setting notification 3](../img/6.png)
+![Main page](master/img/1.png)
+![Hourly Forecast](master/img/2.png)
+![Daily Forecast](master/img/3.png)
+![Setting notification 1](master/img/4.png)
+![Setting notification 2](master/img/5.png)
+![Setting notification 3](master/img/6.png)
 
 
 ## References
