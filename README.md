@@ -11,8 +11,9 @@ Please run it on API 28.
 ## Functions have built
 - Show current temperature.
 - Show hourly forecast(24hr).
-- Show daily forecast(4 days).
+- Show daily forecast(5 days).
 - Can locate user location.
+- Can set notifation(half finished)
 
 ## Functions haven't built
 - Use user location, I am using hardcoded location:Boston right now. The problem is about FragmentPagerAdapter.
