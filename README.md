@@ -28,7 +28,7 @@ Please run it on API 28.
 ![Setting notification 2](https://github.com/Sinyii/weather-app-android/blob/master/img/5.png|width=80)
 ![Setting notification 3](https://github.com/Sinyii/weather-app-android/blob/master/img/6.png|width=80)
 
-
+<img src="img/1.png" width="100">
 ## References
 https://youtu.be/EZ-sNN7UWFU  
 https://youtu.be/oh4YOj9VkVE  
