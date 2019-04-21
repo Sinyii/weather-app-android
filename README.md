@@ -21,12 +21,12 @@ Please run it on API 28.
 
 
 ### Screenshots
-![Main page](img/1.png|width=80)
-![Hourly Forecast](img/2.png|width=80)
-![Daily Forecast](img/3.png|width=80)
-![Setting notification 1](img/4.png|width=80)
-![Setting notification 2](img/5.png|width=80)
-![Setting notification 3](img/6.png|width=80)
+![Main page](https://github.com/Sinyii/weather-app-android/blob/master/img/1.png|width=80)
+![Hourly Forecast](https://github.com/Sinyii/weather-app-android/blob/master/img/2.png|width=80)
+![Daily Forecast](https://github.com/Sinyii/weather-app-android/blob/master/img/3.png|width=80)
+![Setting notification 1](https://github.com/Sinyii/weather-app-android/blob/master/img/4.png|width=80)
+![Setting notification 2](https://github.com/Sinyii/weather-app-android/blob/master/img/5.png|width=80)
+![Setting notification 3](https://github.com/Sinyii/weather-app-android/blob/master/img/6.png|width=80)
 
 
 ## References
