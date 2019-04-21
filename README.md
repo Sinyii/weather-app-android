@@ -21,17 +21,11 @@ Please run it on API 28.
 
 
 ### Screenshots
-[Main page]
 <img src="img/1.png" width="250">
-[Hourly Forecast]
 <img src="img/2.png" width="250">
-[Daily Forecast]
 <img src="img/3.png" width="250">
-[Setting notification 1]
 <img src="img/4.png" width="250">
-[Setting notification 2]
 <img src="img/5.png" width="250">
-[Setting notification 3]
 <img src="img/6.png" width="250">
 
 ## References
