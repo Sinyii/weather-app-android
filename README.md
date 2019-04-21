@@ -21,12 +21,12 @@ Please run it on API 28.
 
 
 ### Screenshots
-![Main page](img/1.png&s=200)
-![Hourly Forecast](img/2.png&s=200)
-![Daily Forecast](img/3.png&s=200)
-![Setting notification 1](img/4.png&s=200)
-![Setting notification 2](img/5.png&s=200)
-![Setting notification 3](img/6.png&s=200)
+![Main page](img/1.png|width=80)
+![Hourly Forecast](img/2.png|width=80)
+![Daily Forecast](img/3.png|width=80)
+![Setting notification 1](img/4.png|width=80)
+![Setting notification 2](img/5.png|width=80)
+![Setting notification 3](img/6.png|width=80)
 
 
 ## References
