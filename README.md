@@ -28,19 +28,19 @@ PATH: weather-app-android/apk/04212019/
 
 
 ## References
-[Android Studio For Beginners Series](https://www.youtube.com/watch?v=dFlPARW5IX8&list=PLp9HFLVct_ZvMa7IVdQyUUyh8t2re9apm)  
-[Create a Weather App on Android – Android Studio](https://youtu.be/w1g9AaDltUM)  
-[Android options menu tutorial](https://youtu.be/EZ-sNN7UWFU)  
-[Options Menu with Sub Items - Android Studio Tutorial](https://youtu.be/oh4YOj9VkVE)  
-[Android Tab Tutorial -Android Studio Tab Fragments](https://youtu.be/bNpWGI_hGGg)  
-[Tab Layout with Different Fragments - Android Studio Tutorial](https://youtu.be/h4HwU_ENXYM)  
-[Get Location and City Name in Android Studio](https://youtu.be/rKnzzrdhb9g)  
-[Notifications Tutorial Part 1 - NOTIFICATION CHANNELS - Android Studio Tutorial](https://youtu.be/tTbd1Mfi-Sk)  
-
-[Modify tab style](https://materialdoc.com/components/tabs/)  
-[Notifications Tutorial Part 1 - NOTIFICATION CHANNELS - Android Studio Tutorial](https://www.youtube.com/watch?v=tTbd1Mfi-Sk)  
-[Repeat a task](https://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay)  
-[Notifications](https://codinginflow.com/tutorials/android/notifications-notification-channels/part-1-notification-channels)   
+### Youtube video
+1.[Android Studio For Beginners Series](https://www.youtube.com/watch?v=dFlPARW5IX8&list=PLp9HFLVct_ZvMa7IVdQyUUyh8t2re9apm)  
+2.[Create a Weather App on Android – Android Studio](https://youtu.be/w1g9AaDltUM)  
+3.[Android options menu tutorial](https://youtu.be/EZ-sNN7UWFU)  
+4.[Options Menu with Sub Items - Android Studio Tutorial](https://youtu.be/oh4YOj9VkVE)  
+5.[Android Tab Tutorial -Android Studio Tab Fragments](https://youtu.be/bNpWGI_hGGg)  
+6.[Tab Layout with Different Fragments - Android Studio Tutorial](https://youtu.be/h4HwU_ENXYM)  
+7.[Get Location and City Name in Android Studio](https://youtu.be/rKnzzrdhb9g)  
+8.[Notifications Tutorial Part 1 - NOTIFICATION CHANNELS - Android Studio Tutorial](https://youtu.be/tTbd1Mfi-Sk)  
+### Webpage
+1.[Modify tab style](https://materialdoc.com/components/tabs/)  
+2.[Repeat a task](https://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay)  
+3.[Notifications](https://codinginflow.com/tutorials/android/notifications-notification-channels/part-1-notification-channels)   
 
 ## Other
 - This project started on 4/17/2019, first version uploaded on 4/19/2019.
