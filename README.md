@@ -52,4 +52,4 @@ I will keep modify it.
 #### 4/21 Update note
 - modify display
 - built setting activity
-- remaining problems: push notification & use user location(the notification function was successful before lol.. still trying to figure what happened)
+- remaining problems: push notification & use user location(the notification function was successful before lol.. still trying to figure it out what was happened)
