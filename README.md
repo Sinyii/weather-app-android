@@ -5,11 +5,11 @@ Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather 
 PATH: weatherAppTab/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java  
 
 ## Compile
-Please put this directory under your default Android Studio project directory.
-Please run it on API 28.
+Please put this directory under your default Android Studio project directory.  
+Please run it on API 28. 
 
 ## APK path
-PATH: weather-app-android/apk/04212019/
+PATH: weather-app-android/apk/04212019/  
 
 ## Functions have built
 - Show current temperature.
