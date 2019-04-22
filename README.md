@@ -1,5 +1,9 @@
 # weather-app-android
 
+## Screenshots
+<img src="img/1.png" width="250"> <img src="img/2.png" width="250"> <img src="img/3.png" width="250">  
+<img src="img/4.png" width="250"> <img src="img/5.png" width="250"> <img src="img/6.png" width="250">
+
 ## API key
 Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather map api key.  
 PATH: weatherAppTab/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java  
@@ -23,11 +27,6 @@ PATH: weather-app-android/apk/04212019/
 - Push notification.
 
 
-### Screenshots
-<img src="img/1.png" width="250"> <img src="img/2.png" width="250"> <img src="img/3.png" width="250">  
-<img src="img/4.png" width="250"> <img src="img/5.png" width="250"> <img src="img/6.png" width="250">
-
-
 ## References
 [Android Studio For Beginners Series](https://www.youtube.com/watch?v=dFlPARW5IX8&list=PLp9HFLVct_ZvMa7IVdQyUUyh8t2re9apm)  
 [Create a Weather App on Android – Android Studio](https://youtu.be/w1g9AaDltUM)  
@@ -43,13 +42,13 @@ PATH: weather-app-android/apk/04212019/
 [Repeat a task](https://stackoverflow.com/questions/6242268/repeat-a-task-with-a-time-delay)  
 [Notifications](https://codinginflow.com/tutorials/android/notifications-notification-channels/part-1-notification-channels)   
 
-### Other
+## Other
 - This project started on 4/17/2019, first version uploaded on 4/19/2019.
 I will keep modify it.
 - The forecast service of openweathermap will only support until5/1/2019.
 
-###  Update history
-#### 4/21 Update note
+##  Update history
+### 4/21 Update note
 - modify display
 - built setting activity
 - remaining problems: push notification & use user location(the notification function was successful before lol.. still trying to figure it out what was happened)
