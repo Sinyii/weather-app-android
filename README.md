@@ -4,8 +4,11 @@
 <img src="img/1.png" width="250"> <img src="img/2.png" width="250"> <img src="img/3.png" width="250">  
 <img src="img/4.png" width="250"> <img src="img/5.png" width="250"> <img src="img/6.png" width="250">
 
+## About this app
+This app is constructed by Android Studio and Java. I gather weather data from [OpenWeatherMap](https://openweathermap.org/). The features of this app include: Showing current weather data of user location, showing forcasting weather data, let user could set notification. I used [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) to show the data.
+
 ## API key
-Please modify the WEATHERMAP_API_KEY variable in MainActivity with your weather map api key.  
+Please modify the WEATHERMAP_API_KEY variable in MainActivity with your OpenWeatherMap api key.  
 PATH: weatherAppTab/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java  
 
 ## Compile
@@ -17,8 +20,8 @@ PATH: weather-app-android/apk/04212019/
 
 ## Functions have built
 - Show current temperature.
-- Show hourly forecast(24hr).
-- Show daily forecast(5 days).
+- Show hourly forecast(24hr). 
+- Show daily forecast(5 days). 
 - Can locate user location.
 - Can set notifation(half finished)
 
