@@ -33,7 +33,7 @@ PATH: weather-app-android/apk/04212019/
 [Create a Weather App on Android – Android Studio](https://youtu.be/w1g9AaDltUM)  
 [Android options menu tutorial](https://youtu.be/EZ-sNN7UWFU)  
 [Options Menu with Sub Items - Android Studio Tutorial](https://youtu.be/oh4YOj9VkVE)  
-[Android Tab Tutorial [Android Studio Tab Fragments](https://youtu.be/bNpWGI_hGGg)  
+[Android Tab Tutorial -Android Studio Tab Fragments](https://youtu.be/bNpWGI_hGGg)  
 [Tab Layout with Different Fragments - Android Studio Tutorial](https://youtu.be/h4HwU_ENXYM)  
 [Get Location and City Name in Android Studio](https://youtu.be/rKnzzrdhb9g)  
 [Notifications Tutorial Part 1 - NOTIFICATION CHANNELS - Android Studio Tutorial](https://youtu.be/tTbd1Mfi-Sk)  
