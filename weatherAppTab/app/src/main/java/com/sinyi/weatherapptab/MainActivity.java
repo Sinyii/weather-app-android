@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
         Hourly.OnFragmentInteractionListener{
 
     public static String CITY = "Boston";
-    public static String WEATHERMAP_API_KEY = "YOUR API　KEY";
+    public static String WEATHERMAP_API_KEY = "YOUR API KEY";
     public static final int APICALL_UPPERBOUND = 60;
     public static int CALLCOUNT = 0;
     public static int CURRENTDEGREE = 0;
@@ -96,12 +96,14 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.locateMe:
                 locate();
                 Toast.makeText(this, "Current city:" + CITY, Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
                 return true;
             case R.id.notification:
                 Toast.makeText(this, "notification is selected", Toast.LENGTH_SHORT).show();
                 Intent settingIntent = new Intent(this, SettingActivity.class);
-                this.startActivity(settingIntent);
-
+                startActivity(settingIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -189,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
 
-        notificationManager.notify(11, notification);
+        notificationManager.notify(1, notification);
     }
 
     //TODO: Check the senOnChannel1 call, its parameter might be wrong
@@ -197,11 +199,15 @@ public class MainActivity extends AppCompatActivity implements
         if(ABOVE == 1){
             if(CURRENTDEGREE > Integer.parseInt(NOTIFIDEGREE)){
                 sendOnChannel1(getWindow().getDecorView().getRootView());
+                //Toast.makeText(this, "A msg should send: Above " + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
+
             }
         }
         else if(ABOVE == 2){
             if(CURRENTDEGREE < Integer.parseInt(NOTIFIDEGREE)){
                 sendOnChannel1(getWindow().getDecorView().getRootView());
+                //Toast.makeText(this, "A msg should send: Below" + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -211,8 +217,7 @@ public class MainActivity extends AppCompatActivity implements
         public void run()
         {
             checkNotification();
-
-            myHandler.postDelayed(this, 5000);
+            myHandler.postDelayed(this, 5000); // 5 secs
         }
     };
 }
