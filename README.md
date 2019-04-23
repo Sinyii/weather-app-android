@@ -24,9 +24,9 @@ PATH: weather-app-android/apk/04212019/
 - Show daily forecast(5 days). 
 - Can locate user location.
 - Can set notifation(half finished)
+- Locate user and use user's location
 
 ## Functions haven't built
-- Use user location, I am using hardcoded location:Boston right now. The problem is about FragmentPagerAdapter.
 - Push notification.
 
 
@@ -51,7 +51,12 @@ I will keep modify it.
 - The forecast service of openweathermap will only support until5/1/2019.
 
 ##  Update history
-### 4/21 Update note
+### 4/21
 - modify display
 - built setting activity
 - remaining problems: push notification & use user location(the notification function was successful before lol.. still trying to figure it out what was happened)
+
+### 4/23
+- modify display
+- modify location problem
+- remaining problems: push notification

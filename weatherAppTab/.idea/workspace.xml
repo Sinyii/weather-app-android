@@ -91,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="-958">
+              <caret line="102" column="34" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -160,7 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onCre</find>
       <find>Line</find>
       <find>OnChartGestureListener</find>
       <find>dai</find>
@@ -190,6 +189,7 @@
       <find>bu</find>
       <find>location</find>
       <find>notificationManager</find>
+      <find>notification</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -895,8 +895,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="-958">
+          <caret line="102" column="34" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
