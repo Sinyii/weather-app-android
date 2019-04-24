@@ -45,26 +45,22 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class Daily extends Fragment implements OnChartGestureListener, OnChartValueSelectedListener {
-    String city = MainActivity.CITY;
-    String WEATHERMAP_API_KEY = MainActivity.WEATHERMAP_API_KEY;
-    double[] dTemp, dMaxTemp, dMinTemp;
-    String[] dDate, dTime;
-    LineChart mChartDaily;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private String city = MainActivity.CITY;
+    private String WEATHERMAP_API_KEY = MainActivity.WEATHERMAP_API_KEY;
+    private double[] dTemp, dMaxTemp, dMinTemp;
+    private String[] dDate, dTime;
+    private LineChart mChartDaily;
+    // Upper bound of hours
     private static final int FORECAST_HOURS = 96;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    private static final String ARG_PARAM1 = "param1";
 
     private OnFragmentInteractionListener mListener;
 
     public Daily() {
         // Required empty public constructor
     }
-
-    // TODO: Rename and change types and number of parameters
+    // Useless constructor, keep for future use
     public static Daily newInstance(String param1) {
         Daily fragment = new Daily();
         Bundle args = new Bundle();
@@ -97,13 +93,12 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
         mChartDaily.setDragEnabled(true);
         mChartDaily.setScaleEnabled(false);
         mChartDaily.setNoDataText("Tap to load data.");
-
+        // Get city's weather data
         taskLoadUp(city);
         // Inflate the layout for this fragment
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -188,9 +183,10 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    // Connect with openweathermap
     public void taskLoadUp(String query) {
         if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
             Daily.DownloadWeather task = new Daily.DownloadWeather();
@@ -204,9 +200,11 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
     class DownloadWeather extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
+            // If the number of api call is bigger than its upper bound,
             if (MainActivity.CALLCOUNT >= MainActivity.APICALL_UPPERBOUND){
                 MainActivity.CALLCOUNT = 0;
                 try {
+                    // pause the process for 1 min.
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -223,6 +221,7 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
             if (xml == null) {
                 return "";
             }
+            // Count api calls, prevent this app to exceed the limitation of free trial.
             MainActivity.CALLCOUNT++;
             return xml;
         }
@@ -248,10 +247,12 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
                     }
 
                     mChartDaily.getDescription().setText("X:date, Y:°F");
-
-                    ArrayList<Entry> yValues = new ArrayList<>();
-                    ArrayList<Entry> yValuesMax = new ArrayList<>();
-                    ArrayList<Entry> yValuesMin = new ArrayList<>();
+                    // temp
+                    ArrayList<Entry> entries = new ArrayList<>();
+                    // max temp
+                    //ArrayList<Entry> entriesMax = new ArrayList<>();
+                    // min temp
+                    //ArrayList<Entry> entriesMin = new ArrayList<>();
 
                     final int[] dateLabel = new int[FORECAST_HOURS/24+1];
                     int preDay = 0;
@@ -260,9 +261,9 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
                         String[] tmp = dDate[i].split("-");
                         int currentDay = Integer.valueOf(tmp[2]);
                         if(currentDay != preDay){
-                            yValues.add(new Entry(currentDay, (float) dTemp[i]));
-                            yValuesMax.add(new Entry(currentDay, (float) dMaxTemp[i]));
-                            yValuesMin.add(new Entry(currentDay, (float) dMinTemp[i]));
+                            entries.add(new Entry(currentDay, (float) dTemp[i]));
+                            //entriesMax.add(new Entry(currentDay, (float) dMaxTemp[i]));
+                            //entriesMin.add(new Entry(currentDay, (float) dMinTemp[i]));
                             preDay = currentDay;
                             dateLabel[dateCount] = currentDay;
                             dateCount++;
@@ -276,9 +277,9 @@ public class Daily extends Fragment implements OnChartGestureListener, OnChartVa
                     xAxis.setGranularity(1);
                     xAxis.setLabelCount(dateCount); // if you want to display 0, 5 and 10s which are 3 values then put 3 else whatever of your choice.
 
-                    LineDataSet set1 = new LineDataSet(yValues, "Dayly Temperature");
-                    //LineDataSet set2 = new LineDataSet(yValuesMax, "Max");
-                    //LineDataSet set3 = new LineDataSet(yValuesMin, "Min");
+                    LineDataSet set1 = new LineDataSet(entries, "Dayly Temperature");
+                    //LineDataSet set2 = new LineDataSet(entriesMax, "Max");
+                    //LineDataSet set3 = new LineDataSet(entriesMin, "Min");
 
 
 

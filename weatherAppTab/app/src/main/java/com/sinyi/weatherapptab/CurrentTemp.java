@@ -36,31 +36,16 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CurrentTemp.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CurrentTemp#newInstance} factory method to
- * create an instance of this fragment.
- */
-
 public class CurrentTemp extends Fragment {
-    String city = MainActivity.CITY;
-    String WEATHERMAP_API_KEY = MainActivity.WEATHERMAP_API_KEY;
-    TextView cityNameField, detailField, currentTemperatureField,
+    private String city = MainActivity.CITY;
+    private String WEATHERMAP_API_KEY = MainActivity.WEATHERMAP_API_KEY;
+    private TextView cityNameField, detailField, currentTemperatureField,
             humidityField, pressureField, weatherIcon, updatedField;
-    ProgressBar progressBar;
-    Typeface weatherFont;
+    private ProgressBar progressBar;
+    private Typeface weatherFont;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // Useless now
     private static final String ARG_PARAM1 = "param1";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,14 +53,7 @@ public class CurrentTemp extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment CurrentTemp.
-     */
-    // TODO: Rename and change types and number of parameters
+    // Useless constructor, keep for future use
     public static CurrentTemp newInstance(String param1) {
         CurrentTemp fragment = new CurrentTemp();
         Bundle args = new Bundle();
@@ -90,7 +68,6 @@ public class CurrentTemp extends Fragment {
         if (getArguments() != null) {
             city = getArguments().getString(ARG_PARAM1);
         }
-
     }
 
     @Override
@@ -107,13 +84,13 @@ public class CurrentTemp extends Fragment {
         weatherIcon = (TextView) v.findViewById(R.id.weatherIcon);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
         weatherIcon.setTypeface(weatherFont);
+        // Get city's weather data
         taskLoadUp(city);
 
         // Inflate the layout for this fragment
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -137,24 +114,11 @@ public class CurrentTemp extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-
-
-
+    // Connect with openweathermap
     public void taskLoadUp(String query) {
         if (Function.isNetworkAvailable(getActivity().getApplicationContext())) {
             DownloadWeather task = new DownloadWeather();
@@ -164,13 +128,14 @@ public class CurrentTemp extends Fragment {
         }
     }
 
-
     class DownloadWeather extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
+            // If the number of api call is bigger than its upper bound,
             if (MainActivity.CALLCOUNT >= MainActivity.APICALL_UPPERBOUND){
                 MainActivity.CALLCOUNT = 0;
                 try {
+                    // pause the process for 1 min.
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -186,13 +151,14 @@ public class CurrentTemp extends Fragment {
             if (xml == null) {
                 return "";
             }
+            // Count api calls, prevent this app to exceed the limitation of free trial.
             MainActivity.CALLCOUNT++;
             return xml;
         }
 
+        // Process data
         @Override
         protected void onPostExecute(String xml) {
-
             try {
                 JSONObject json = new JSONObject(xml);
                 if (json != null) {
@@ -211,15 +177,12 @@ public class CurrentTemp extends Fragment {
                             json.getJSONObject("sys").getLong("sunset") * 1000)));
 
                     progressBar.setVisibility(View.GONE);
+                    // This class variable of MainActiviry will influence the notification.
                     MainActivity.CURRENTDEGREE = (int)main.getDouble("temp");
-
                 }
             } catch (JSONException e) {
                 Toast.makeText(getActivity().getApplicationContext(), "Error, Check City: " + city, Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-
-
 }

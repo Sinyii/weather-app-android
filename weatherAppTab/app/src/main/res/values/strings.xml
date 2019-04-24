@@ -3,7 +3,7 @@
     <string name="tab_text_1">Current</string>
     <string name="tab_text_2">Hourly</string>
     <string name="tab_text_3">Daily</string>
-    <string name="design">design</string>
+    <string name="design"></string>
     <string name="notification_text">Notify you when current temperature is</string>
     <string-array name="spinner_options">
         <item>above</item>

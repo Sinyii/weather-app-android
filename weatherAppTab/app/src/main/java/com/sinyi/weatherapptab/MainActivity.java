@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
         CurrentTemp.OnFragmentInteractionListener,
         Daily.OnFragmentInteractionListener,
         Hourly.OnFragmentInteractionListener{
-
     public static String CITY = "Boston";
     public static String WEATHERMAP_API_KEY = "YOUR API KEY";
     public static final int APICALL_UPPERBOUND = 60;
@@ -75,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
+        // Notification
         notificationManager = NotificationManagerCompat.from(this);
-
-        myHandler = new android.os.Handler();
-        myHandler.postDelayed(updateTimerThread, 0);
+        // For repeating the process of checking weather current degree reach the degree that we should push notification
+        //myHandler = new android.os.Handler();
+        //myHandler.postDelayed(updateTimerThread, 0);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.locateMe:
                 locate();
                 Toast.makeText(this, "Current city:" + CITY, Toast.LENGTH_SHORT).show();
+                // Refresh activity
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.notification:
                 Toast.makeText(this, "notification is selected", Toast.LENGTH_SHORT).show();
                 Intent settingIntent = new Intent(this, SettingActivity.class);
+                // Open setting page
                 startActivity(settingIntent);
                 return true;
             default:
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-
+    // Get user location(city name)
     private void locate(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 !=PackageManager.PERMISSION_GRANTED){
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    // Get user permission to locate user
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -148,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    // Transform geographic data to city name
     private String getLocation(double lat, double loc){
         String cityName = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -168,19 +173,20 @@ public class MainActivity extends AppCompatActivity implements
         return cityName;
     }
 
+    // Auto-generated function
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
 
-    public void sendOnChannel1(View v) {
+    // Notification channel
+    public void sendOnChannel1() {
         String title = "Notification!";
-        String message;
+        String message="hi";
         if (ABOVE == 1) {
             message = "Current degree is above your setting value.";
         } else {
             message ="Current degree is below your setting value.";
-
         }
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
@@ -194,30 +200,54 @@ public class MainActivity extends AppCompatActivity implements
         notificationManager.notify(1, notification);
     }
 
+    public void sendOnChannel2() {
+        String title = "Notification!";
+        String message="hi";
+        if (ABOVE == 1) {
+            message = "Current degree is above your setting value.";
+        } else {
+            message ="Current degree is below your setting value.";
+        }
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_sentiment_very_satisfied_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        notificationManager.notify(2, notification);
+    }
+
+
     //TODO: Check the senOnChannel1 call, its parameter might be wrong
     public void checkNotification(){
+        // Above is True
         if(ABOVE == 1){
             if(CURRENTDEGREE > Integer.parseInt(NOTIFIDEGREE)){
-                sendOnChannel1(getWindow().getDecorView().getRootView());
-                //Toast.makeText(this, "A msg should send: Above " + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
-
+                sendOnChannel1();
+                Toast.makeText(this, "A msg should send: Above " + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
             }
         }
+        // Below is True
         else if(ABOVE == 2){
             if(CURRENTDEGREE < Integer.parseInt(NOTIFIDEGREE)){
-                sendOnChannel1(getWindow().getDecorView().getRootView());
-                //Toast.makeText(this, "A msg should send: Below" + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
-
+                sendOnChannel1();
+                Toast.makeText(this, "A msg should send: Below" + NOTIFIDEGREE, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    // Running checkNotification() every 5 secs
+    /*
     private Runnable updateTimerThread = new Runnable()
     {
         public void run()
         {
+            sendOnChannel1();
             checkNotification();
             myHandler.postDelayed(this, 5000); // 5 secs
         }
     };
+    */
 }
