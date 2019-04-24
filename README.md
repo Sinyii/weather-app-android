@@ -15,8 +15,8 @@ PATH: weatherAppTab/app/src/main/java/com/sinyi/weatherapptab/MainActivity.java
 Please put this directory under your default Android Studio project directory.  
 Please run it on API 28. 
 
-## APK path
-PATH: weather-app-android/apk/04212019/  
+## APK download
+[OneDrive](https://1drv.ms/u/s!At4-nuLYZd0phTAS9vbYAgId_FR8)
 
 ## Functions have built
 - Show current temperature.
