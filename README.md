@@ -22,12 +22,9 @@ Please run it on API 28.
 - Show current temperature.
 - Show hourly forecast(24hr). 
 - Show daily forecast(5 days). 
-- Can locate user location.
-- Can set notifation(half finished)
-- Locate user and use user's location
+- Can set notifation(half built).  
+- Locate user and use user's location.  
 
-## Functions haven't built
-- Push notification.
 
 
 ## References
